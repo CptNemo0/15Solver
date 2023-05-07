@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\15puzzle\15puzzle.csproj" />
     <ProjectReference Include="..\15puzzle\_15Puzzle.csproj" />
   </ItemGroup>
 

@@ -25,7 +25,7 @@ namespace _15puzzle.Boards
 
         public abstract bool Equals(Board other);
         public abstract Vector2 FindZero();
-        public abstract byte[] Map();
+        public abstract int[] Map();
         public abstract void Move(Vector2 currentPosition);
         public abstract void Print();
         public abstract string Serialize();

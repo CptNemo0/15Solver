@@ -96,15 +96,18 @@ namespace _15puzzle.Boards
 
             return retValue;
         }
-        public override byte[] Map()
+        public override int[] Map()
         {
-            byte[] retValue = new byte[Width * Height];
+            int[] retValue = new int[Width * Height];
+
+            int a = 0;
 
             for (int i = 0; i < Height; i++)
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    retValue[Height * i + j] = Fields[i][j].Value;
+                    retValue[a] = Fields[i][j].Value;
+                    a++;
                 }
             }
 
@@ -131,7 +134,7 @@ namespace _15puzzle.Boards
         public override string Serialize()
         {
             StringBuilder sb = new StringBuilder();
-            byte[] mapping = Map();
+            int[] mapping = Map();
             for (int i = 0; i < mapping.Length; i++)
             {
                 sb.Append(mapping[i]);

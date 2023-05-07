@@ -2,6 +2,7 @@
 using _15puzzle.Solvers;
 using _15puzzle.States;
 using _15puzzle.Utility;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace _15puzzle
 {
@@ -11,20 +12,32 @@ namespace _15puzzle
         {
             Console.WriteLine("God created Arrakis to train the faithful");
 
-            byte WIDTH = 4;
+            byte WIDTH = 3;
             byte HEIGHT = 4;
 
             int visitedStates = 0;
             int processedStates = 0;
             double elapsedTime = 0;
 
-
-            Board test = new Board(HEIGHT, WIDTH);
+            /*
+            for(int i = 0;  i < 1000; i++) 
+            {
+                
+                Board winningBoard = new Board(HEIGHT, WIDTH);
+                Mover mover = new Mover(test);
+                Shuffler shuffler = new Shuffler(test, mover);
+                shuffler.shuffle(15);
+            }
+            */
             Board winningBoard = new Board(HEIGHT, WIDTH);
-            Mover mover = new Mover(test);
-            Shuffler shuffler = new Shuffler(test, mover);
-            shuffler.shuffle(15);
+            Board test = new Board(HEIGHT, WIDTH);
+            test.Fields[0][0].Value = 1;
+            test.Fields[0][1].Value = 3;
+            test.Fields[0][2].Value = 2;
+            Checker checker = new Checker(test);
+            Console.WriteLine(checker.IsSolvable());
 
+            
             ASState testState = new ASState(test, null, null);
             ASState winningState = new ASState(winningBoard, null, null);
 
@@ -37,8 +50,10 @@ namespace _15puzzle
                 solution[i].Board15.Print();
                 Console.WriteLine(solution[i].PreviousMove);
             }
+            Console.WriteLine("\n" +  solution.Count);
             Console.WriteLine(visitedStates);
             Console.WriteLine(processedStates);
+            
         }
     }
 }

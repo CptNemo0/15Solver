@@ -43,7 +43,7 @@ namespace _15puzzle.States
                     if (value != 0)
                     {
                         value = value - 1;
-                        int x = value / Board15.Width;
+                        int x = value / Board15.Height;
                         int y = value % Board15.Width;
 
                         x = Math.Abs(x - i);
@@ -67,10 +67,10 @@ namespace _15puzzle.States
                     if (value != 0)
                     {
                         value = value - 1;
-                        int x = value / Board15.Width;
+                        int x = value / Board15.Height;
                         int y = value % Board15.Width;
 
-                        if (x != i && y != j)
+                        if (x != i || y != j)
                         {
                             retValue++;
                         }

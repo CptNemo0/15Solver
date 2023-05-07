@@ -5,40 +5,77 @@ namespace _15puzzle.Utility
 {
     public class Checker
     {
-        private IBoard board;
-        private IPuzzleField[][] winningBoard;
+        private Board board;
 
         public Checker(Board board)
         {
-            this.board = board;
-            winningBoard = new PuzzleField[board.Height][];
-            for (int i = 0; i < board.Height; i++)
+            this.Board = board;
+        }
+
+        public Board Board { get => board; set => board = value; }
+
+        private int FindXPosition()
+        {
+            // start from bottom-right corner of matrix
+            for (int i = board.Height - 1; i >= 0; i--)
             {
-                winningBoard[i] = new PuzzleField[board.Width];
-                for (int j = 0; j < board.Width; j++)
+                for (int j = board.Width - 1; j >= 0; j--)
                 {
-                    winningBoard[i][j] = new PuzzleField((byte)(board.Height * i + j + 1));
+                    if (board.Fields[i][j].Value == 0)
+                    {
+                        return board.Height - i;
+                    }
                 }
             }
-            winningBoard[board.Height - 1][board.Width - 1].Value = 0;
-            this.board = board;
+            return -1;
         }
 
-        public Checker(IBoard board, IPuzzleField[][] winningBoard)
+        private int GetInvCount(int[] arr)
         {
-            this.board = board;
-            this.winningBoard = winningBoard;
+            int inv_count = 0;
+            for (int i = 0; i < ((Board.Height * Board.Width) - 1); i++)
+            {
+                for (int j = i + 1; j < (Board.Height * Board.Width); j++)
+                {
+                    if (arr[j] != 0 && arr[i] != 0 && arr[i] > arr[j])
+                        inv_count++;
+                }
+            }
+            return inv_count;
         }
 
-        public bool isWinning()
+        public bool IsSolvable()
         {
             bool retValue = false;
-
-            if (winningBoard == board.Fields)
+            int[] arr = Board.Map();
+            int invCount = GetInvCount(arr);
+               
+            if (board.Width % 2 == 1)
             {
-                retValue = true;
+                if(invCount % 2 == 0) 
+                {
+                    retValue = true;
+                }
             }
+            else 
+            {
+                int pos = FindXPosition();
 
+                if (pos % 2 == 1)       //nieparzysty
+                {
+                    if(invCount % 2 == 0)
+                    {
+                        retValue = true;
+                    }
+                }
+                else                    //parzysty
+                {
+                    if(invCount % 2 == 1)
+                    {
+                        retValue = true;
+                    }
+                }
+            }
             return retValue;
         }
     }

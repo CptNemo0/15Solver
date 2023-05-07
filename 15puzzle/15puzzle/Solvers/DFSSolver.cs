@@ -50,8 +50,8 @@ namespace _15puzzle.Solvers
 
                 mover = new Mover(state.Board15);
                 string ppm = state.PreviousMove;
-                moves = mover.getPossibleMoves(ppm);
-                visitedStates += moves.Length;
+                moves = mover.getPossibleMoves(ppm); 
+                visitedStates += moves.Length; 
                 sorter.sort(ref moves);
                 DFSState[] childrenStates = new DFSState[moves.Length];
 

@@ -66,6 +66,10 @@ namespace GUI
             visitedStatesBox.Text = string.Empty;
             processedStatesBox.Text = string.Empty;
             timeBox.Text = string.Empty;
+            solveButton.Enabled = true;
+            exportButton.Enabled = true;
+            orderPicker.Enabled = true;
+            picker.Enabled = true;
 
             List<Board> boards = new List<Board>();
 
@@ -84,6 +88,20 @@ namespace GUI
             }
 
             board = boards[0];
+            Checker checker = new Checker(board);
+            if(!checker.IsSolvable())
+            {
+                solveButton.Enabled = false;
+                exportButton.Enabled = false;
+                orderPicker.Enabled = false;    
+                picker.Enabled = false;
+
+                solutionBox.Text = "CAN'T SOLVE!!!";
+                moveCountBox.Text = "CAN'T SOLVE!!!";
+                visitedStatesBox.Text = "CAN'T SOLVE!!!";
+                processedStatesBox.Text = "CAN'T SOLVE!!!";
+                timeBox.Text = "CAN'T SOLVE!!!";
+            }
         }
 
         private void picker_SelectedItemChanged(object sender, EventArgs e)
